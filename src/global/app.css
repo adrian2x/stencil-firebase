@@ -1,0 +1,136 @@
+/* Document Level Styles */
+
+/*
+  The imports below are needed to include our light dom css for global styles such as fonts and colors.
+  You can comment out any of these imports if you do not need that css. For example, if you have your own
+  global font family css then you can comment out the typography.css import.
+*/
+
+/** Core CSS required for ionic components to work property */
+@import '~@ionic/core/css/core.css';
+
+/** Basic CSS for apps built with Ionic */
+@import '~@ionic/core/css/normalize.css';
+@import '~@ionic/core/css/structure.css';
+@import '~@ionic/core/css/typography.css';
+
+/** Optional CSS utils that can be commented out */
+@import '~@ionic/core/css/padding.css';
+@import '~@ionic/core/css/float-elements.css';
+@import '~@ionic/core/css/text-alignment.css';
+@import '~@ionic/core/css/text-transformation.css';
+@import '~@ionic/core/css/flex-utils.css';
+@import '~@ionic/core/css/display.css';
+
+/*
+  The CSS Variables below can be used to theme your app.
+  For more info on CSS variables check out:
+  https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables
+
+  More info about color theming using Ionic:
+  https://ionicframework.com/docs/theming/color-generator
+*/
+
+
+/* ==========================================================================
+   Begin Tailwindscss
+   ========================================================================== */
+
+/* @See https://tailwindcss.com/docs/functions-and-directives
+   ========================================================================== */
+
+@tailwind utilities;
+
+/* Base layer to merge with tailwindcss base */
+@layer base {
+
+  @import "./dark.css";
+
+  h1 {
+    /* the apply directive is like extending multiple classes */
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  select {
+    appearance: none;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 11px;
+    padding-left: 1rem;
+    padding-right: 1.33rem; /* account for icon right */
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    background-color: var(--background);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath d='M64 144l192 224 192-224H64z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: .8rem;
+    background-position: calc(100% - 5px) center;
+    background-clip: border-box;
+    border-radius: 5px;
+
+    & option {
+      color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 1);
+    }
+
+    &:active, &:focus {
+      /* background-color: var(--ion-background-color, #fff); */
+    }
+
+    @nest body.dark & {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 512 512'%3e%3cpath d='M64 144l192 224 192-224H64z'/%3e%3c/svg%3e");
+    }
+  }
+
+  .sc-ion-searchbar-md-h {
+    --box-shadow: none;
+    --background: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.07);
+  }
+}
+
+/*  Utilities layer to merge with @tailwind utilities */
+@layer utilities {
+  .scroll-snap-none {
+    scroll-snap-type: none;
+  }
+  .scroll-snap-x {
+    scroll-snap-type: x;
+  }
+  .scroll-snap-y {
+    scroll-snap-type: y;
+  }
+
+  /* Auto-generate responsive prefixes for the classes */
+  @responsive {
+    .scroll-snap-none {
+      scroll-snap-type: none;
+    }
+    .scroll-snap-x {
+      scroll-snap-type: x;
+    }
+    .scroll-snap-y {
+      scroll-snap-type: y;
+    }
+  }
+
+  /* Generates pseudo-class variants */
+  @variants hover, focus {
+    .filter-none {
+      filter: none;
+    }
+    .filter-grayscale {
+      filter: grayscale(100%);
+    }
+  }
+}
+
+/* END Tailwindscss
+   ========================================================================== */
