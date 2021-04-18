@@ -19,6 +19,8 @@ export namespace Components {
     }
     interface AppRouter {
     }
+    interface LoginPage {
+    }
     interface ModalDialog {
     }
     interface ModalFactory {
@@ -55,6 +57,12 @@ declare global {
     var HTMLAppRouterElement: {
         prototype: HTMLAppRouterElement;
         new (): HTMLAppRouterElement;
+    };
+    interface HTMLLoginPageElement extends Components.LoginPage, HTMLStencilElement {
+    }
+    var HTMLLoginPageElement: {
+        prototype: HTMLLoginPageElement;
+        new (): HTMLLoginPageElement;
     };
     interface HTMLModalDialogElement extends Components.ModalDialog, HTMLStencilElement {
     }
@@ -96,6 +104,7 @@ declare global {
         "ag-grid": HTMLAgGridElement;
         "ag-grid-demo-page": HTMLAgGridDemoPageElement;
         "app-router": HTMLAppRouterElement;
+        "login-page": HTMLLoginPageElement;
         "modal-dialog": HTMLModalDialogElement;
         "modal-factory": HTMLModalFactoryElement;
         "url-home": HTMLUrlHomeElement;
@@ -116,6 +125,8 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface AppRouter {
+    }
+    interface LoginPage {
     }
     interface ModalDialog {
     }
@@ -138,6 +149,7 @@ declare namespace LocalJSX {
         "ag-grid": AgGrid;
         "ag-grid-demo-page": AgGridDemoPage;
         "app-router": AppRouter;
+        "login-page": LoginPage;
         "modal-dialog": ModalDialog;
         "modal-factory": ModalFactory;
         "url-home": UrlHome;
@@ -153,6 +165,7 @@ declare module "@stencil/core" {
             "ag-grid": LocalJSX.AgGrid & JSXBase.HTMLAttributes<HTMLAgGridElement>;
             "ag-grid-demo-page": LocalJSX.AgGridDemoPage & JSXBase.HTMLAttributes<HTMLAgGridDemoPageElement>;
             "app-router": LocalJSX.AppRouter & JSXBase.HTMLAttributes<HTMLAppRouterElement>;
+            "login-page": LocalJSX.LoginPage & JSXBase.HTMLAttributes<HTMLLoginPageElement>;
             "modal-dialog": LocalJSX.ModalDialog & JSXBase.HTMLAttributes<HTMLModalDialogElement>;
             "modal-factory": LocalJSX.ModalFactory & JSXBase.HTMLAttributes<HTMLModalFactoryElement>;
             "url-home": LocalJSX.UrlHome & JSXBase.HTMLAttributes<HTMLUrlHomeElement>;

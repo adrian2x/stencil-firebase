@@ -10,7 +10,7 @@ export class AppRoot {
       <ion-app>
         <ion-nav id="main" />
         <ion-router useHash={false}>
-          <ion-route url="/" component="url-home" />
+          <ion-route url="/" component="login-page" />
           <ion-route url="/grid-demo" component="ag-grid-demo-page" />
           <ion-route url="/settings" component="url-settings" />
           <ion-route url="/loading" component="url-loading" />
