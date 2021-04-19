@@ -1,5 +1,7 @@
 import { Component, State, Listen, Element, Watch, h } from '@stencil/core';
+import { popoverController } from '@ionic/core';
 import cx from 'classnames';
+import state from '../../global/store';
 
 @Component({
   tag: 'url-home',
@@ -27,44 +29,35 @@ export class ViewHome {
   }
 
   render() {
-    const collapseSearch = !this.expandSearch;
-    return (
+    return [
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-toggle>
+              <ion-menu-button autoHide={false}></ion-menu-button>
+            </ion-menu-toggle>
+          </ion-buttons>
+
+          {state.isAuthenticated()
+            ? [
+                <ion-buttons slot="primary">
+                  <ion-button onClick={this.presentPopover}>
+                    <ion-icon slot="start" name="person-sharp"></ion-icon> {state.user?.displayName}
+                  </ion-button>
+                </ion-buttons>,
+              ]
+            : [
+                <ion-buttons slot="primary">
+                  <ion-button href="/login">
+                    <ion-icon slot="start" name="person-sharp"></ion-icon> Sign In
+                  </ion-button>
+                </ion-buttons>,
+              ]}
+
+          <ion-title>Home</ion-title>
+        </ion-toolbar>
+      </ion-header>,
       <ion-content>
-        <ion-header>
-          <ion-toolbar class={cx('toolbar-reveal', { 'toolbar-hide': collapseSearch })}>
-            <ion-searchbar
-              ref={input => {
-                this.searchInput = input;
-              }}
-              inputMode="search"
-              class="mobile-searchbar"
-              cancelButtonText="Cancel"
-              showCancelButton="always"
-            ></ion-searchbar>
-          </ion-toolbar>
-          <ion-toolbar class={cx('toolbar-reveal', 'toolbar-up', { 'toolbar-hide': this.expandSearch })}>
-            <ion-buttons slot="start">
-              <ion-menu-toggle>
-                <ion-menu-button autoHide={false}></ion-menu-button>
-              </ion-menu-toggle>
-            </ion-buttons>
-            <ion-title>Header</ion-title>
-            <ion-buttons slot="primary">
-              <div class="ion-hide-md-down">
-                <ion-searchbar inputMode="search" animated={true} style={{ maxWidth: '375px' }}></ion-searchbar>
-              </div>
-              <ion-button
-                fill="clear"
-                class="ion-hide-md-up"
-                onClick={() => {
-                  this.expandSearch = true;
-                }}
-              >
-                <ion-icon slot="icon-only" name="search"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
         <ion-content class="ion-padding">
           <p>
             Welcome to the PWA Toolkit. You can use this starter to build entire apps with web components using Stencil and ionic/core! Check out the README for everything that
@@ -75,7 +68,22 @@ export class ViewHome {
             Profile page
           </ion-button>
         </ion-content>
-      </ion-content>
-    );
+      </ion-content>,
+    ];
   }
+
+  presentPopover = async event => {
+    if (!state.isAuthenticated()) {
+      return window.location.assign('/');
+    }
+    const popover = await popoverController.create({
+      component: 'user-menu',
+      translucent: true,
+      showBackdrop: false,
+      event,
+    });
+    await popover.present();
+    const { data, role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', data, role);
+  };
 }

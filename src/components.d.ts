@@ -38,6 +38,8 @@ export namespace Components {
     interface UrlSettings {
         "name": string;
     }
+    interface UserMenu {
+    }
 }
 declare global {
     interface HTMLAgGridElement extends Components.AgGrid, HTMLStencilElement {
@@ -100,6 +102,12 @@ declare global {
         prototype: HTMLUrlSettingsElement;
         new (): HTMLUrlSettingsElement;
     };
+    interface HTMLUserMenuElement extends Components.UserMenu, HTMLStencilElement {
+    }
+    var HTMLUserMenuElement: {
+        prototype: HTMLUserMenuElement;
+        new (): HTMLUserMenuElement;
+    };
     interface HTMLElementTagNameMap {
         "ag-grid": HTMLAgGridElement;
         "ag-grid-demo-page": HTMLAgGridDemoPageElement;
@@ -111,6 +119,7 @@ declare global {
         "url-loading": HTMLUrlLoadingElement;
         "url-profile": HTMLUrlProfileElement;
         "url-settings": HTMLUrlSettingsElement;
+        "user-menu": HTMLUserMenuElement;
     }
 }
 declare namespace LocalJSX {
@@ -145,6 +154,8 @@ declare namespace LocalJSX {
     interface UrlSettings {
         "name"?: string;
     }
+    interface UserMenu {
+    }
     interface IntrinsicElements {
         "ag-grid": AgGrid;
         "ag-grid-demo-page": AgGridDemoPage;
@@ -156,6 +167,7 @@ declare namespace LocalJSX {
         "url-loading": UrlLoading;
         "url-profile": UrlProfile;
         "url-settings": UrlSettings;
+        "user-menu": UserMenu;
     }
 }
 export { LocalJSX as JSX };
@@ -172,6 +184,7 @@ declare module "@stencil/core" {
             "url-loading": LocalJSX.UrlLoading & JSXBase.HTMLAttributes<HTMLUrlLoadingElement>;
             "url-profile": LocalJSX.UrlProfile & JSXBase.HTMLAttributes<HTMLUrlProfileElement>;
             "url-settings": LocalJSX.UrlSettings & JSXBase.HTMLAttributes<HTMLUrlSettingsElement>;
+            "user-menu": LocalJSX.UserMenu & JSXBase.HTMLAttributes<HTMLUserMenuElement>;
         }
     }
 }

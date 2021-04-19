@@ -19,11 +19,13 @@ export class ViewProfile {
   render() {
     return [
       <ion-header>
-        <ion-toolbar color="primary">
+        <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-back-button defaultHref="/" />
+            <ion-menu-toggle>
+              <ion-menu-button autoHide={false}></ion-menu-button>
+            </ion-menu-toggle>
           </ion-buttons>
-          <ion-title>Profile: {this.name}</ion-title>
+          <ion-title>Profile</ion-title>
         </ion-toolbar>
       </ion-header>,
 
@@ -31,16 +33,13 @@ export class ViewProfile {
         <p>
           {sayHello()}! My name is {this.formattedName()}. My name was passed in through a route param!
         </p>
-        <p>
-          I also receive state from a store. You can play with the counter below
-        </p>
+        <p>I also receive state from a store. You can play with the counter below</p>
 
         <div>
           <ion-button onClick={() => state.clicks--}>-1</ion-button>
-            <ion-label>Value: {state.clicks}</ion-label>
+          <ion-label>Value: {state.clicks}</ion-label>
           <ion-button onClick={() => state.clicks++}>+1</ion-button>
         </div>
-
       </ion-content>,
     ];
   }

@@ -1,21 +1,23 @@
-import { Component, h } from '@stencil/core';
+import { Component, State, h } from '@stencil/core';
+import { popoverController } from '@ionic/core';
+import state from '../../global/store';
+
+const PrivateRoute = props => {
+  return state.isAuthenticated() ? <ion-route {...props} /> : <ion-route-redirect from="*" to="/login"></ion-route-redirect>;
+};
 
 @Component({
   tag: 'app-router',
   styleUrl: 'app-router.css',
 })
 export class AppRoot {
+  @State() expandSearch = false;
+  searchInput: HTMLIonSearchbarElement;
+
   render() {
     return (
       <ion-app>
         <ion-nav id="main" />
-        <ion-router useHash={false}>
-          <ion-route url="/" component="login-page" />
-          <ion-route url="/grid-demo" component="ag-grid-demo-page" />
-          <ion-route url="/settings" component="url-settings" />
-          <ion-route url="/loading" component="url-loading" />
-          <ion-route url="/profile/:name" component="url-profile" />
-        </ion-router>
         <ion-menu content-id="main">
           <ion-header>
             <ion-toolbar color="primary">
@@ -27,7 +29,7 @@ export class AppRoot {
             <ion-list>
               <ion-list-header>Navigation</ion-list-header>
               <ion-menu-toggle auto-hide="false">
-                <ion-item button>
+                <ion-item button href="/">
                   <ion-icon slot="start" name="home-sharp"></ion-icon>
                   <ion-label>Home</ion-label>
                 </ion-item>
@@ -51,6 +53,15 @@ export class AppRoot {
             </ion-list>
           </ion-content>
         </ion-menu>
+
+        <ion-router useHash={false}>
+          <ion-route url="/" component="url-home" />
+          <ion-route url="/login" component="login-page" />
+          <PrivateRoute url="/grid-demo" component="ag-grid-demo-page"></PrivateRoute>
+          <PrivateRoute url="/settings" component="url-settings"></PrivateRoute>
+          <PrivateRoute url="/profile/:name" component="url-profile"></PrivateRoute>
+          <ion-route url="/loading" component="url-loading" />
+        </ion-router>
       </ion-app>
     );
   }
